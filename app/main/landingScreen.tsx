@@ -1,12 +1,12 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-const Dashboard = () => {
+const LandingScreen = () => {
   return (
     <View>
-      <Text>Dashboard</Text>
+      <Text>LandingScreen</Text>
     </View>
   );
 };
 
-export default Dashboard;
+export default LandingScreen;

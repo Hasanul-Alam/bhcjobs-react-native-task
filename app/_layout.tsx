@@ -9,10 +9,22 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
+  const isLoggedIn = false; // Replace with your actual authentication logic
+
+  if (isLoggedIn) {
+    return (
+      <ThemeProvider value={DefaultTheme}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="main/landingScreen.tsx" />
+        </Stack>
+        <StatusBar style="auto" />
+      </ThemeProvider>
+    );
+  }
   return (
     <ThemeProvider value={DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="auth" />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
