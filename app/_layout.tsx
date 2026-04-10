@@ -1,32 +1,26 @@
-import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 import "../global.css";
 
 export const unstable_settings = {
-  anchor: "(tabs)",
+  initialRouteName: "(tabs)",
 };
 
 export default function RootLayout() {
-  const isLoggedIn = false; // Replace with your actual authentication logic
+  const isLoggedIn = false;
 
-  if (isLoggedIn) {
-    return (
-      <ThemeProvider value={DefaultTheme}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="main/landingScreen.tsx" />
-        </Stack>
-        <StatusBar style="auto" />
-      </ThemeProvider>
-    );
-  }
   return (
-    <ThemeProvider value={DefaultTheme}>
+    <ThemeProvider value={DarkTheme}>
+      <StatusBar style="light" />
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="auth" />
+        {isLoggedIn ? (
+          <Stack.Screen name="main/landingScreen" />
+        ) : (
+          <Stack.Screen name="(auth)" />
+        )}
       </Stack>
-      <StatusBar style="auto" />
     </ThemeProvider>
   );
 }
