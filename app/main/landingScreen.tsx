@@ -1,4 +1,5 @@
 import CommonHeader from "@/components/ui/CommonHeader";
+import { Footer } from "@/components/ui/Footer";
 import HotJobsScreen from "@/components/ui/HotJobs";
 import PopularCompaniesScreen from "@/components/ui/PopularCompanies";
 import PopularIndustriesScreen from "@/components/ui/PopularIndustries";
@@ -86,6 +87,11 @@ const LandingScreen = () => {
           {/* Hot Jobs Section */}
           <View>
             <HotJobsScreen />
+          </View>
+
+          {/* Footer */}
+          <View>
+            <Footer />
           </View>
         </ScrollView>
       </SafeAreaView>
