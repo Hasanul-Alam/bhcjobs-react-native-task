@@ -1,4 +1,4 @@
-import CommonHeader from "@/components/ui/CommonHeader";
+import CommonHeader from "@/components/reusableComponents/CommonHeader";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";

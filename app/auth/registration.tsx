@@ -1,4 +1,4 @@
-import CommonHeader from "@/components/ui/CommonHeader";
+import CommonHeader from "@/components/reusableComponents/CommonHeader";
 import {
   Ionicons,
   MaterialCommunityIcons,

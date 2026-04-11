@@ -1,10 +1,10 @@
-import CommonHeader from "@/components/ui/CommonHeader";
-import { Footer } from "@/components/ui/Footer";
-import HotJobsScreen from "@/components/ui/HotJobs";
-import PopularCompaniesScreen from "@/components/ui/PopularCompanies";
-import PopularIndustriesScreen from "@/components/ui/PopularIndustries";
-import RecommendedJobsScreen from "@/components/ui/RecommendedJobs";
-import TrendingJobsScreen from "@/components/ui/TrendingJobs";
+import { Footer } from "@/components/landingScreenComponents/Footer";
+import HotJobsScreen from "@/components/landingScreenComponents/HotJobs";
+import PopularCompaniesScreen from "@/components/landingScreenComponents/PopularCompanies";
+import PopularIndustriesScreen from "@/components/landingScreenComponents/PopularIndustries";
+import RecommendedJobsScreen from "@/components/landingScreenComponents/RecommendedJobs";
+import TrendingJobsScreen from "@/components/landingScreenComponents/TrendingJobs";
+import CommonHeader from "@/components/reusableComponents/CommonHeader";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
