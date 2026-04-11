@@ -1,7 +1,7 @@
+import { setPhoneAndOtp } from "@/redux/slices/authSlice";
 import { useState } from "react";
 import { Alert } from "react-native";
-
-const BASE_URL = "https://your-api-base-url.com"; // 🔁 replace with your base URL
+import { useDispatch } from "react-redux";
 
 type RegistrationForm = {
   fullName: string;
@@ -17,6 +17,8 @@ type RegistrationForm = {
 
 const useRegistration = () => {
   const [loading, setLoading] = useState(false);
+  const [verificationLoading, setVerificationLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const validate = (form: RegistrationForm): string | null => {
     if (!form.fullName.trim()) return "Full name is required.";
@@ -48,21 +50,21 @@ const useRegistration = () => {
       formData.append("password", form.password);
       formData.append("confirm_password", form.confirmPassword);
       formData.append("passport_number", form.passportNo.trim());
-      formData.append(
-        "dob",
-        form.dob!.toISOString().split("T")[0], // formats to YYYY-MM-DD
-      );
+      formData.append("dob", form.dob!.toISOString().split("T")[0]);
       formData.append("gender", form.gender.toLowerCase());
 
-      const response = await fetch(`${BASE_URL}/api/job_seeker/register`, {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `https://dev.bhcjobs.com/api/job_seeker/register`,
+        { method: "POST", body: formData },
+      );
 
       const json = await response.json();
 
       if (json.status === true) {
         Alert.alert("Success", json.message ?? "Registration successful!");
+        dispatch(
+          setPhoneAndOtp({ phone: form.mobile, otp: json.data.otp.toString() }),
+        );
         onSuccess();
       } else {
         Alert.alert("Error", json.message ?? "Registration failed.");
@@ -74,7 +76,43 @@ const useRegistration = () => {
     }
   };
 
-  return { register, loading };
+  const verifyPhone = async (
+    otp: string,
+    phone: string,
+    onSuccess: () => void,
+  ) => {
+    if (otp.length < 4) {
+      Alert.alert("Validation Error", "Please enter the complete OTP.");
+      return;
+    }
+
+    setVerificationLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("phone", phone);
+      formData.append("otp", otp);
+
+      const response = await fetch(
+        `https://dev.bhcjobs.com/api/job_seeker/phone_verify`,
+        { method: "POST", body: formData },
+      );
+
+      const json = await response.json();
+      console.log("OTP verify response:", JSON.stringify(json, null, 2));
+
+      if (json.status === true) {
+        onSuccess();
+      } else {
+        Alert.alert("Error", json.message ?? "OTP verification failed.");
+      }
+    } catch {
+      Alert.alert("Error", "Something went wrong. Please try again.");
+    } finally {
+      setVerificationLoading(false);
+    }
+  };
+
+  return { register, verifyPhone, loading, verificationLoading };
 };
 
 export default useRegistration;

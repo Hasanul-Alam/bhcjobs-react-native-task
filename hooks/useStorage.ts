@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useCallback } from "react";
 
-function useAsyncStorage() {
+function useStorage() {
   const getValue = useCallback(async <T>(key: string): Promise<T | null> => {
     try {
       const stored = await AsyncStorage.getItem(key);
@@ -33,4 +33,4 @@ function useAsyncStorage() {
   return { getValue, setValue, deleteValue };
 }
 
-export default useAsyncStorage;
+export default useStorage;
