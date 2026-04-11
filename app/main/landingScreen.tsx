@@ -1,5 +1,6 @@
 import CommonHeader from "@/components/ui/CommonHeader";
 import PopularIndustriesScreen from "@/components/ui/PopularIndustries";
+import RecommendedJobsScreen from "@/components/ui/RecommendedJobs";
 import TrendingJobsScreen from "@/components/ui/TrendingJobs";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -68,6 +69,11 @@ const LandingScreen = () => {
           {/* Trending Jobs Section */}
           <View>
             <TrendingJobsScreen />
+          </View>
+
+          {/* Recommended Jobs Section */}
+          <View>
+            <RecommendedJobsScreen />
           </View>
         </ScrollView>
       </SafeAreaView>
