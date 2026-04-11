@@ -1,6 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
+import ApplyButton from "../reusableComponents/ApplyButton";
+import OutlineButton from "../reusableComponents/OutlineButton";
+import SectionTitle from "../reusableComponents/SectionTitle";
 
 type TrendingJob = {
   id: string;
@@ -85,18 +88,11 @@ const TrendingJobCard = ({ job }: { job: TrendingJob }) => {
 
         {/* Buttons */}
         <View className="flex-row gap-3">
-          <TouchableOpacity
-            activeOpacity={0.8}
-            className="flex-1 border border-blue-400 rounded-xl py-3 items-center"
-          >
-            <Text className="text-blue-500 font-semibold text-sm">View</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            className="flex-1 bg-blue-500 rounded-xl py-3 items-center"
-          >
-            <Text className="text-white font-semibold text-sm">Apply Now</Text>
-          </TouchableOpacity>
+          <OutlineButton
+            buttonText="View"
+            onPress={() => console.log("View Button Pressed")}
+          />
+          <ApplyButton onPress={() => console.log("Apply Button Pressed")} />
         </View>
       </View>
     </View>
@@ -107,13 +103,7 @@ const TrendingJobsScreen = () => {
   return (
     <View className="py-4">
       {/* Section Title */}
-      <View className="items-center mb-4">
-        <View className="bg-blue-50 border border-blue-100 rounded-full px-5 py-2">
-          <Text className="text-gray-700 font-semibold text-base">
-            Trending Jobs
-          </Text>
-        </View>
-      </View>
+      <SectionTitle title="Trending Jobs" />
 
       <TrendingJobCard job={job} />
     </View>

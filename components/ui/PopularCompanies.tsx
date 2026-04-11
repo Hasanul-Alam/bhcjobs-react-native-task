@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import SectionTitle from "../reusableComponents/SectionTitle";
 
 type Company = {
   id: string;
@@ -102,13 +103,7 @@ const PopularCompaniesScreen = () => {
   return (
     <View className="px-2 pb-6">
       {/* Section Title */}
-      <View className="items-center py-4">
-        <View className="bg-blue-50 border border-blue-100 rounded-full px-5 py-2">
-          <Text className="text-gray-700 font-semibold text-base">
-            Popular Companies
-          </Text>
-        </View>
-      </View>
+      <SectionTitle title="Popular Companies" />
 
       {/* Grid */}
       {rows.map((row, rowIndex) => (

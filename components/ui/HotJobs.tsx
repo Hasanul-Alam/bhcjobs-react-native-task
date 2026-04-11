@@ -9,6 +9,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import ApplyButton from "../reusableComponents/ApplyButton";
+import OutlineButton from "../reusableComponents/OutlineButton";
+import SectionTitle from "../reusableComponents/SectionTitle";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -113,18 +116,11 @@ const HotJobCard = ({ job }: { job: HotJob }) => (
     </View>
 
     <View className="flex-row gap-3">
-      <TouchableOpacity
-        activeOpacity={0.8}
-        className="flex-1 border border-blue-400 rounded-xl py-3 items-center"
-      >
-        <Text className="text-blue-500 font-semibold text-sm">View</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={0.8}
-        className="flex-1 bg-blue-500 rounded-xl py-3 items-center"
-      >
-        <Text className="text-white font-semibold text-sm">Apply Now</Text>
-      </TouchableOpacity>
+      <OutlineButton
+        buttonText="View"
+        onPress={() => console.log("View Button Pressed")}
+      />
+      <ApplyButton onPress={() => console.log("Apply Button Pressed")} />
     </View>
   </View>
 );
@@ -151,28 +147,10 @@ const HotJobsScreen = () => {
   return (
     <View className="pb-6">
       {/* Title */}
-      <View className="items-center py-4">
-        <View className="bg-blue-50 border border-blue-100 rounded-full px-5 py-2">
-          <Text className="text-gray-700 font-semibold text-base">
-            Hot Jobs
-          </Text>
-        </View>
-      </View>
+      <SectionTitle title="Hot Jobs" />
 
       {/* Carousel */}
       <View className="flex-row items-center">
-        <TouchableOpacity
-          className="pl-2"
-          onPress={() => scrollTo(Math.max(activeIndex - 1, 0))}
-          activeOpacity={0.7}
-        >
-          <Ionicons
-            name="chevron-back-circle-outline"
-            size={28}
-            color="#3b82f6"
-          />
-        </TouchableOpacity>
-
         <ScrollView
           ref={scrollRef}
           horizontal
@@ -187,20 +165,6 @@ const HotJobsScreen = () => {
             <HotJobCard key={job.id} job={job} />
           ))}
         </ScrollView>
-
-        <TouchableOpacity
-          className="pr-2"
-          onPress={() =>
-            scrollTo(Math.min(activeIndex + 1, hotJobs.length - 1))
-          }
-          activeOpacity={0.7}
-        >
-          <Ionicons
-            name="chevron-forward-circle-outline"
-            size={28}
-            color="#3b82f6"
-          />
-        </TouchableOpacity>
       </View>
 
       {/* Dots */}
