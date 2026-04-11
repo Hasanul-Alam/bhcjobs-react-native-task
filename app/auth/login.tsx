@@ -128,7 +128,12 @@ export default function Login() {
             </TouchableOpacity>
 
             {/* Sign In Button */}
-            <TouchableOpacity activeOpacity={0.85}>
+            <TouchableOpacity
+              activeOpacity={0.85}
+              onPress={() => {
+                router.push("/main/landingScreen");
+              }}
+            >
               <LinearGradient
                 colors={["#3b82f6", "#2563eb"]}
                 start={{ x: 0, y: 0 }}
