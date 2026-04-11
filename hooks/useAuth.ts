@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Alert } from "react-native";
 import { useDispatch } from "react-redux";
 
+const BASE_URL = "https://dev.bhcjobs.com";
+
 type RegistrationForm = {
   fullName: string;
   mobile: string;
@@ -15,9 +17,18 @@ type RegistrationForm = {
   agreed: boolean;
 };
 
-const useRegistration = () => {
+type LoginResponse = {
+  token: string;
+  user_id: number;
+  phone: string;
+  email: string;
+  name: string;
+};
+
+const useAuth = () => {
   const [loading, setLoading] = useState(false);
   const [verificationLoading, setVerificationLoading] = useState(false);
+  const [signInLoading, setSignInLoading] = useState(false);
   const dispatch = useDispatch();
 
   const validate = (form: RegistrationForm): string | null => {
@@ -53,10 +64,10 @@ const useRegistration = () => {
       formData.append("dob", form.dob!.toISOString().split("T")[0]);
       formData.append("gender", form.gender.toLowerCase());
 
-      const response = await fetch(
-        `https://dev.bhcjobs.com/api/job_seeker/register`,
-        { method: "POST", body: formData },
-      );
+      const response = await fetch(`${BASE_URL}/api/job_seeker/register`, {
+        method: "POST",
+        body: formData,
+      });
 
       const json = await response.json();
 
@@ -92,10 +103,10 @@ const useRegistration = () => {
       formData.append("phone", phone);
       formData.append("otp", otp);
 
-      const response = await fetch(
-        `https://dev.bhcjobs.com/api/job_seeker/phone_verify`,
-        { method: "POST", body: formData },
-      );
+      const response = await fetch(`${BASE_URL}/api/job_seeker/phone_verify`, {
+        method: "POST",
+        body: formData,
+      });
 
       const json = await response.json();
       console.log("OTP verify response:", JSON.stringify(json, null, 2));
@@ -112,7 +123,54 @@ const useRegistration = () => {
     }
   };
 
-  return { register, verifyPhone, loading, verificationLoading };
+  const signIn = async (
+    phone: string,
+    password: string,
+    onSuccess: () => void,
+  ) => {
+    if (!phone.trim()) {
+      Alert.alert("Validation Error", "Phone number is required.");
+      return;
+    }
+    if (!password) {
+      Alert.alert("Validation Error", "Password is required.");
+      return;
+    }
+
+    setSignInLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("phone", phone.trim());
+      formData.append("password", password);
+
+      const response = await fetch(`${BASE_URL}/api/job_seeker/login`, {
+        method: "POST",
+        body: formData,
+      });
+
+      const json = await response.json();
+      console.log("Login response:", JSON.stringify(json, null, 2));
+
+      if (json.status === true) {
+        onSuccess();
+      } else {
+        Alert.alert("Error", json.message ?? "Login failed.");
+      }
+    } catch {
+      Alert.alert("Error", "Something went wrong. Please try again.");
+    } finally {
+      setSignInLoading(false);
+    }
+  };
+
+  return {
+    register,
+    verifyPhone,
+    signIn,
+    loading,
+    verificationLoading,
+    signInLoading,
+  };
 };
 
-export default useRegistration;
+export default useAuth;

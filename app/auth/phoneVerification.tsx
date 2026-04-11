@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import CommonHeader from "@/components/reusableComponents/CommonHeader";
-import useRegistration from "@/hooks/useRegistration";
+import useAuth from "@/hooks/useAuth";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
@@ -26,7 +26,7 @@ const PhoneVerificationScreen = () => {
   const [secondsLeft, setSecondsLeft] = useState(EXPIRY_SECONDS);
   const inputRefs = useRef<(TextInput | null)[]>([]);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const { verificationLoading, verifyPhone } = useRegistration();
+  const { verificationLoading, verifyPhone } = useAuth();
   const phone = useSelector((state: any) => state.auth.phone || "");
 
   const router = useRouter();

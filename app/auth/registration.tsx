@@ -5,7 +5,7 @@ import TermsCheckbox from "@/components/authComponents/registrationComponents/Te
 import TextInputField from "@/components/authComponents/registrationComponents/TextInputField";
 import CommonHeader from "@/components/reusableComponents/CommonHeader";
 
-import useRegistration from "@/hooks/useRegistration";
+import useAuth from "@/hooks/useAuth";
 import useStorage from "@/hooks/useStorage";
 import {
   Ionicons,
@@ -43,7 +43,7 @@ export default function Registration() {
   const [agreed, setAgreed] = useState(true);
 
   const router = useRouter();
-  const { register, loading } = useRegistration();
+  const { register, loading } = useAuth();
   const { setValue } = useStorage();
 
   const handleRegister = () => {

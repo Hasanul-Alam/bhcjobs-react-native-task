@@ -1,10 +1,12 @@
 import CommonHeader from "@/components/reusableComponents/CommonHeader";
+import useAuth from "@/hooks/useAuth";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   Text,
@@ -18,6 +20,8 @@ export default function Login() {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const { signIn, signInLoading } = useAuth();
 
   const router = useRouter();
 
@@ -130,8 +134,11 @@ export default function Login() {
             {/* Sign In Button */}
             <TouchableOpacity
               activeOpacity={0.85}
+              disabled={signInLoading}
               onPress={() => {
-                router.push("/main/landingScreen");
+                signIn(mobile, password, () => {
+                  router.replace("/main/landingScreen");
+                });
               }}
             >
               <LinearGradient
@@ -139,11 +146,19 @@ export default function Login() {
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
                 className="items-center justify-center"
-                style={{ height: 50, borderRadius: 12 }}
+                style={{
+                  height: 50,
+                  borderRadius: 12,
+                  opacity: signInLoading ? 0.7 : 1,
+                }}
               >
-                <Text className="text-white font-bold text-sm tracking-widest">
-                  SIGN IN
-                </Text>
+                {signInLoading ? (
+                  <ActivityIndicator color="#fff" />
+                ) : (
+                  <Text className="text-white font-bold text-sm tracking-widest">
+                    SIGN IN
+                  </Text>
+                )}
               </LinearGradient>
             </TouchableOpacity>
 
