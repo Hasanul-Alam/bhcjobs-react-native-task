@@ -27,7 +27,10 @@ const LandingScreen = () => {
       <SafeAreaView className="flex-1">
         <CommonHeader />
         <StatusBar style="light" />
-        <ScrollView className="flex-1 bg-white">
+        <ScrollView
+          className="flex-1 bg-white"
+          showsVerticalScrollIndicator={false}
+        >
           <LinearGradient
             colors={["#bfdbfe", "#60a5fa", "#3b82f6", "#2563eb"]}
             start={{ x: 1, y: 0 }}
