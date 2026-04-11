@@ -366,8 +366,8 @@ export default function Registration() {
                     colors={["#3b82f6", "#2563eb"]}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 0 }}
-                    className="rounded-xl items-center justify-center"
-                    style={{ height: 50 }}
+                    className="items-center justify-center"
+                    style={{ height: 50, borderRadius: 12 }}
                   >
                     <Text
                       className="text-white font-bold tracking-widest"

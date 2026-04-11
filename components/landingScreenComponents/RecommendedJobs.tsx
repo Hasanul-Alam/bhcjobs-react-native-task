@@ -252,13 +252,21 @@ const RecommendedJobsScreen = () => {
       {hasMore && (
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={handleLoadMore}
-          className="items-center justify-center mt-2 py-3 border border-blue-200 rounded-2xl bg-blue-50"
+          onPress={() =>
+            setVisibleCount((prev) =>
+              Math.min(prev + LOAD_MORE_COUNT, recommendedJobs.length),
+            )
+          }
+          className="self-center mt-2 border border-gray-200 rounded-2xl px-8 py-3 bg-white"
+          style={{
+            elevation: 1,
+            shadowColor: "#000",
+            shadowOpacity: 0.04,
+            shadowRadius: 4,
+            shadowOffset: { width: 0, height: 1 },
+          }}
         >
-          <Ionicons name="chevron-down" size={22} color="#3b82f6" />
-          <Text className="text-blue-500 text-xs font-medium mt-0.5">
-            Load More
-          </Text>
+          <Ionicons name="chevron-down" size={20} color="#6b7280" />
         </TouchableOpacity>
       )}
     </View>
